@@ -103,6 +103,11 @@ So really, for this repo, it's making the aggregate data function
 (ambiguously) better. For me, it's to learn how to train to detect
 an unknown person and tag him/her with an ID.
 
+The last thing that needs work, for me, is when a new picture comes
+in. Perhaps at an 87% confidence threshold can you retrain a embedding
+using this new dataset (that just includes that one new photo). It's
+similar to how social media companies do it, but it'd be neat to learn!
+
 ---
 ### References
 

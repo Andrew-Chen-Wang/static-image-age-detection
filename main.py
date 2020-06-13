@@ -10,9 +10,11 @@ import os
 from pathlib import Path
 
 import cv2
+from click import confirm
 
 from src.arg_builder import build_args
 from src.multi_age_detect.prepare.encode_faces import encode_faces
+from src.multi_age_detect.prepare.train import create_recognizer_with_label
 from src.single_image.detect_age import detect_age as single_image_age_detect
 
 
@@ -34,6 +36,13 @@ if __name__ == "__main__":
     weightsPath = str(Path().cwd() / "models" / "age" / "age_net.caffemodel")
     ageNet = cv2.dnn.readNetFromCaffe(prototxtPath, weightsPath)
 
+    print("[INFO] loading face recognizer model...")
+    embedderModel = str(
+        Path().cwd() / "models" / "recognizer" / "openface_nn4.small2.v1.t7"
+    )
+    # Used for the recongition part, not for the training.
+    embedder = cv2.dnn.readNetFromTorch(args["embedding_model"])
+
     # Begin detection
     image = args["image"]
     if os.path.isdir(image):
@@ -44,9 +53,38 @@ if __name__ == "__main__":
                     filename, args["confidence"], faceNet, ageNet, args["show_first"]
                 )
         else:
-            encode_faces(
-                dataset_path=args["dataset"], encoding_path=args["encoding_path"]
-            )
+            # Preparing the data and models
+            assert None not in (
+                args["dataset"],
+                args["encoding_path"],
+                args["recognizer_path"],
+                args["name_path"],
+            ), "You must specify the path to the dataset directory and newly created encoding path"
+
+            if os.path.isfile(args["encoding_path"]):
+                choice = confirm(
+                    "Encoding file already exists. Overwrite?", default=False
+                )
+                if choice:
+                    encode_faces(args["dataset"], args["encoding_path"])
+            else:
+                encode_faces(
+                    dataset_path=args["dataset"], encoding_path=args["encoding_path"]
+                )
+
+            # Create the recognizer and name pickles.
+            if os.path.isfile(args["recognizer_path"]) or os.path.isfile(
+                args["name_path"]
+            ):
+                choice = confirm(
+                    "Recognizer/name encoder already exists. Overwrite?", default=False
+                )
+                if choice:
+                    create_recognizer_with_label(
+                        args["encoding_path"],
+                        args["recognizer_path"],
+                        args["name_path"],
+                    )
 
     elif os.path.isfile(image):
         single_image_age_detect(

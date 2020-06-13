@@ -17,7 +17,10 @@ def build_args() -> ArgumentParser:
         "-c",
         "--confidence",
         type=float,
-        default=0.15,
+        # Leave default here so we don't get some random
+        # object as a face (i.e. sam jackson's eye at .15 min
+        # confidence level).
+        default=0.46,
         help="Minimum probability to filter weak detections.",
     )
 
@@ -42,7 +45,18 @@ def build_args() -> ArgumentParser:
         "during calculations.",
     )
     ap.add_argument(
-        "--encoding-path", help="Output path for facial recognition encoding path.",
+        "--encoding-path",
+        default="data/encoding.pickle",
+        help="Output path for facial recognition encoding path.",
     )
-
+    ap.add_argument(
+        "--recognizer-path",
+        default="data/recognizer.pickle",
+        help="path to output model trained to recognize faces",
+    )
+    ap.add_argument(
+        "--name-path",
+        default="data/names.pickle",
+        help="path to output label/name encoder",
+    )
     return ap

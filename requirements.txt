@@ -1,5 +1,7 @@
 opencv-python==4.2.0.34
+click
 numpy==1.18.5
+scikit-learn==0.23.1
 # Make sure you have cmake installed
 # append -vvv during pip installation
 # to ensure installation isn't stuck.

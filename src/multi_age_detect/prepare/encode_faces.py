@@ -8,36 +8,20 @@ goes with which face.
 """
 import os
 import pickle
-from typing import List
 
 import cv2
 import face_recognition
 
-
-def list_images(base_path) -> List[str]:
-    """
-    Lists all image paths in specified directory.
-    Taken mostly from imutils with some adds/subtracts:
-    https://github.com/jrosebr1/imutils/blob/master/imutils/paths.py
-    """
-    image_types = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff")
-
-    for (rootDir, dirNames, filenames) in os.walk(base_path):
-        # loop over the filenames in the current directory
-        for filename in filenames:
-            # determine the file extension of the current file
-            ext = os.path.splitext(filename)[1].lower()
-
-            # check to see if the file is an image and should be processed
-            if ext in image_types:
-                # construct the path to the image and yield it
-                imagePath = os.path.join(rootDir, filename)
-                yield imagePath
+from ...utils.list_images import list_images
 
 
 def encode_faces(dataset_path: str, encoding_path: str) -> None:
     """
     Creates an encoding file for facial recognition.
+
+    This is used for training our face and name/label model.
+    The given model in models/recognizer/openface_nn4.small2.v1.t7
+    is used for the face recognizer function itself.
 
     :param dataset_path: The path to the input dataset
     used for creating the encoding. Dataset should include
