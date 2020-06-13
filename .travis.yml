@@ -8,7 +8,7 @@ cache: pip
 jobs:
   include:
     - name: "Single Image Test"
-      install: pip install opencv-python face_recognition
+      install: pip install -r requirements.txt
       script:
         - python main.py -i data/single_images/adrian.png
         - python main.py -i data/single_images/neil_patrick_harris.png
