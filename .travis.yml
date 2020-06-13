@@ -6,6 +6,12 @@ python: 3.8
 
 jobs:
   include:
+    - name: "Single Image Trial"
+      install: pip install -r requirements.txt
+      script:
+        - python main.py -i images/adrian.png
+        - python main.py -i images/nail_patrick_harris.png
+        - python main.py -i images/samuel_l_jackson.png
     - name: "Lint"
-      install: pip install black isort
-      script: black ./ --check && isort -lai 2 -rc -c -df
+      install: pip install black
+      script: black main.py src --check
