@@ -1,0 +1,11 @@
+os: linux
+dist: bionic
+
+language: python
+python: 3.8
+
+jobs:
+  include:
+    - name: "Lint"
+      install: pip install black isort
+      script: black ./ --check && isort -lai 2 -c
