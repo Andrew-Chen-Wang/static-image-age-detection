@@ -17,14 +17,20 @@ if __name__ == "__main__":
         "-i",
         "--image",
         required=True,
-        help="Path to single image or directory of images",
+        help="Path to single image or directory of images.",
     )
     ap.add_argument(
         "-c",
         "--confidence",
         type=float,
         default=0.15,
-        help="minimum probability to filter weak detections",
+        help="Minimum probability to filter weak detections.",
+    )
+    ap.add_argument(
+        "-sf",
+        "--show-first",
+        action="store_true",
+        help="Shows the first image after processing.",
     )
     args = vars(ap.parse_args())
 
@@ -46,10 +52,14 @@ if __name__ == "__main__":
     # Begin detection
     image = args["image"]
     if os.path.isdir(image):
-        detect_age(image, args["confidence"], faceNet, ageNet)
+        detect_age(image, args["confidence"], faceNet, ageNet, args["show_first"])
     elif os.path.isfile(image):
         detect_age(
-            image, min_confidence=args["confidence"], face_net=faceNet, age_net=ageNet
+            image,
+            min_confidence=args["confidence"],
+            face_net=faceNet,
+            age_net=ageNet,
+            show_image=args["show_first"],
         )
     else:
         raise FileNotFoundError("Couldn't find directory or file.")
