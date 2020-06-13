@@ -10,7 +10,7 @@ jobs:
       install: pip install -r requirements.txt
       script:
         - python main.py -i images/adrian.png
-        - python main.py -i images/nail_patrick_harris.png
+        - python main.py -i images/neil_patrick_harris.png
         - python main.py -i images/samuel_l_jackson.png
     - name: "Lint"
       install: pip install black
