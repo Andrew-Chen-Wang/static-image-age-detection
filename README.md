@@ -71,7 +71,7 @@ If I'm doing something wrong (again, I've never learned machine
 learning before. I only know some basic concepts and ideas),
 please open a GitHub issue or contact me here:
 
-[Andrew Wang](mailto:acwangpython@gmail.com.com?subject=[GH Static Image Repo])
+[Andrew Wang at acwangpython@gmail.com](mailto:acwangpython@gmail.com?subject=[GH%20DL%20Static%20Image])
 
 (If you decide to email me, please leave the prefix subject line. Thank you).
 

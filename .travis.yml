@@ -8,4 +8,4 @@ jobs:
   include:
     - name: "Lint"
       install: pip install black isort
-      script: black ./ --check && isort -lai 2 -c
+      script: black ./ --check && isort -lai 2 -rc -c -df

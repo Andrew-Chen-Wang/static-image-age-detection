@@ -2,9 +2,22 @@ import cv2
 import numpy as np
 
 
-def detect_age(image, min_confidence: float, show_image: bool = False):
-    global faceNet
-    global ageNet
+# define the list of age buckets our age detector will predict
+AGE_BUCKETS = [
+    "(0-2)",
+    "(4-6)",
+    "(8-12)",
+    "(15-20)",
+    "(25-32)",
+    "(38-43)",
+    "(48-53)",
+    "(60-100)",
+]
+
+
+def detect_age(
+    image, min_confidence: float, face_net, age_net, show_image: bool = False
+):
     # load the input image and construct an input blob for the image
     image = cv2.imread(image)
     (h, w) = image.shape[:2]
@@ -12,8 +25,8 @@ def detect_age(image, min_confidence: float, show_image: bool = False):
 
     # pass the blob through the network and obtain the face detections
     print("[INFO] computing face detections...")
-    faceNet.setInput(blob)
-    detections = faceNet.forward()
+    face_net.setInput(blob)
+    detections = face_net.forward()
 
     # loop over the detections
     for i in range(0, detections.shape[2]):
@@ -42,8 +55,8 @@ def detect_age(image, min_confidence: float, show_image: bool = False):
 
             # make predictions on the age and find the age bucket with
             # the largest corresponding probability
-            ageNet.setInput(faceBlob)
-            preds = ageNet.forward()
+            age_net.setInput(faceBlob)
+            preds = age_net.forward()
             i = preds[0].argmax()
             age = AGE_BUCKETS[i]
             ageConfidence = preds[0][i]
