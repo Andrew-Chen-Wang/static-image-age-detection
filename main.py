@@ -36,13 +36,6 @@ if __name__ == "__main__":
     weightsPath = str(Path().cwd() / "models" / "age" / "age_net.caffemodel")
     ageNet = cv2.dnn.readNetFromCaffe(prototxtPath, weightsPath)
 
-    print("[INFO] loading face recognizer model...")
-    embedderModel = str(
-        Path().cwd() / "models" / "recognizer" / "openface_nn4.small2.v1.t7"
-    )
-    # Used for the recongition part, not for the training.
-    embedder = cv2.dnn.readNetFromTorch(args["embedding_model"])
-
     # Begin detection
     image = args["image"]
     if os.path.isdir(image):
@@ -60,6 +53,13 @@ if __name__ == "__main__":
                 args["recognizer_path"],
                 args["name_path"],
             ), "You must specify the path to the dataset directory and newly created encoding path"
+
+            print("[INFO] loading face recognizer model...")
+            embedderModel = str(
+                Path().cwd() / "models" / "recognizer" / "openface_nn4.small2.v1.t7"
+            )
+            # Used for the recognition part, not for the training.
+            embedder = cv2.dnn.readNetFromTorch(embedderModel)
 
             if os.path.isfile(args["encoding_path"]):
                 choice = confirm(
