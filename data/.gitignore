@@ -1,1 +1,3 @@
-encodings/
+*.pickle
+dataset/
+input/
