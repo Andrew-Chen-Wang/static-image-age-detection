@@ -6,12 +6,12 @@ python: 3.8
 
 jobs:
   include:
-    - name: "Single Image Trial"
-      install: pip install -r requirements.txt
+    - name: "Single Image Test"
+      install: pip install opencv-python face_recognition
       script:
-        - python main.py -i images/adrian.png
-        - python main.py -i images/neil_patrick_harris.png
-        - python main.py -i images/samuel_l_jackson.png
+        - python main.py -i data/single_images/adrian.png
+        - python main.py -i data/single_images/neil_patrick_harris.png
+        - python main.py -i data/single_images/samuel_l_jackson.png
     - name: "Lint"
       install: pip install black
       script: black main.py src --check

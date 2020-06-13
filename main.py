@@ -1,38 +1,23 @@
-# USAGE
-# python main.py -i images/adrian.png
+"""
+Single Image Usage
+python main.py -i data/single_images/adrian.png
 
-import argparse
+Multiple-Aggregate Image Usage
+python main.py -i data/multi_images/barack -d=data/dataset --encoding-path=data/encoding.pickle
+"""
+
 import os
 from pathlib import Path
 
 import cv2
 
-from src.detect_age import detect_age
+from src.arg_builder import build_args
+from src.multi_age_detect.prepare.encode_faces import encode_faces
+from src.single_image.detect_age import detect_age as single_image_age_detect
 
 
 if __name__ == "__main__":
-    # Construct the argument parse and parse the arguments
-    ap = argparse.ArgumentParser()
-    ap.add_argument(
-        "-i",
-        "--image",
-        required=True,
-        help="Path to single image or directory of images.",
-    )
-    ap.add_argument(
-        "-c",
-        "--confidence",
-        type=float,
-        default=0.15,
-        help="Minimum probability to filter weak detections.",
-    )
-    ap.add_argument(
-        "-sf",
-        "--show-first",
-        action="store_true",
-        help="Shows the first image after processing.",
-    )
-    args = vars(ap.parse_args())
+    args = vars(build_args().parse_args())
 
     # Set up models and networks as global variables
 
@@ -52,9 +37,19 @@ if __name__ == "__main__":
     # Begin detection
     image = args["image"]
     if os.path.isdir(image):
-        detect_age(image, args["confidence"], faceNet, ageNet, args["show_first"])
+        if args["without_aggregate"]:
+            # This simply gets the age of each person independent of other images
+            for filename in os.listdir(image):
+                single_image_age_detect(
+                    filename, args["confidence"], faceNet, ageNet, args["show_first"]
+                )
+        else:
+            encode_faces(
+                dataset_path=args["dataset"], encoding_path=args["encoding_path"]
+            )
+
     elif os.path.isfile(image):
-        detect_age(
+        single_image_age_detect(
             image,
             min_confidence=args["confidence"],
             face_net=faceNet,

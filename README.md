@@ -2,6 +2,17 @@
 
 Created 9 June 2020
 
+Table of Contents:
+- Introduction
+- How this works
+- Technical details
+- Benchmark
+- What's left to be done
+- References
+- Contact Me
+- License
+
+---
 ### Introduction
 
 The purpose of this package is to identify age through
@@ -41,11 +52,56 @@ are the same; if not, then we raise an error saying they are different.
 If there are multiple objects in the initial image, we only raise an
 error if none of the initial faces appear in the initial picture.
 
-Usage: `python detect_age.py --image images/adrian.png`
+Usage for multi-image dependant age estimation:
+
+```bash
+python main.py -i data/multi_images/barack -d=data/dataset --encoding-path=data/encoding.pickle
+```
+
+Usage: `python main.py --image images/adrian.png`
 
 If you submit a directory of images, then we draw out the initial image
 with bounding boxes. You can specify to show all images with bounding
 boxes.
+
+---
+### Technical details
+
+Besides the single image age detector, the multi-image age detector
+utilizes several single image age estimations of a person and combines
+them in an algorithm. You may notice there is a facial recognition
+package; that is used for figuring out which person gets a certain age
+bracket during the age detection calculation.
+
+The facial recognition DOES NOT affect the results of the age estimation.
+It is primarily designed to detect the person and log the correct age
+bracket in case an input image has multiple people.
+
+---
+### Benchmark
+
+The reason I wanted to do this was to improve the accuracy of age detection
+using videos. To put it to the test, you can run `benchmark.py` which
+will compare the accuracy of just doing a single image test (for an
+entire directory if specified) vs. processing an entire directory.
+The single image test takes the mean of the accuracies to show
+the stability of using multiple images for processing instead of one.
+
+Have I looked through all of OpenCV or PyImageSearch? Nope, only one
+article. But hey, beginner's luck I suppose.
+
+---
+### What's left to be done
+
+Again, my goal was to test this aggregate data for video streaming
+purposes. Although my purpose of video streaming is to tag people
+and not to train on known people, the concept remains the same
+as the training doesn't affect the age detection (we know the age
+detection must work if the face detector detects the target person).
+
+So really, for this repo, it's making the aggregate data function
+(ambiguously) better. For me, it's to learn how to train to detect
+an unknown person and tag him/her with an ID.
 
 ---
 ### References
@@ -64,8 +120,14 @@ myself lol. So thanks for the tutorials, and I hope this
 module actually DOES increase accuracy while maintaining
 a good CPU usage level (slight jab at Dlib's HoG).
 
+Additionally, I used a lot, like a lot, of code from
+Adrian's tutorials, and only tweaked them to be more
+modern and lean (e.g. pathlib, unnecessary args, personal
+modifications to suit the project), so a big shoutout
+to him for his wonderful work!
+
 ---
-### Contact
+### Contact Me
 
 If I'm doing something wrong (again, I've never learned machine
 learning before. I only know some basic concepts and ideas),

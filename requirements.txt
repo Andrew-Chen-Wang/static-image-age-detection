@@ -1,6 +1,13 @@
 opencv-python==4.2.0.34
 numpy==1.18.5
+# Make sure you have cmake installed
+# append -vvv during pip installation
+# to ensure installation isn't stuck.
+face_recognition==1.3.0
 
 # Lint
 black
-isort
+
+# Extras that I apparently didn't get
+# when doing virtualenv
+wheel

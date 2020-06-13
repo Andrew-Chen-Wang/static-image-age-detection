@@ -1,3 +1,5 @@
+from typing import List, Tuple
+
 import cv2
 import numpy as np
 
@@ -17,16 +19,21 @@ AGE_BUCKETS = [
 
 def detect_age(
     image, min_confidence: float, face_net, age_net, show_image: bool = False
-):
+) -> List[Tuple[str, float]]:
     # load the input image and construct an input blob for the image
     image = cv2.imread(image)
     (h, w) = image.shape[:2]
-    blob = cv2.dnn.blobFromImage(image, 1.0, (300, 300), (104.0, 177.0, 123.0))
+    blob = cv2.dnn.blobFromImage(
+        image=image, scalefactor=1.0, size=(300, 300), mean=(104.0, 177.0, 123.0)
+    )
 
     # pass the blob through the network and obtain the face detections
     print("[INFO] computing face detections...")
     face_net.setInput(blob)
     detections = face_net.forward()
+
+    # Stores the age bracket and confidence for each detection.
+    brackets = []
 
     # loop over the detections
     for i in range(0, detections.shape[2]):
@@ -46,10 +53,10 @@ def detect_age(
             # *only* the face ROI
             face = image[startY:endY, startX:endX]
             faceBlob = cv2.dnn.blobFromImage(
-                face,
-                1.0,
-                (227, 227),
-                (78.4263377603, 87.7689143744, 114.895847746),
+                image=face,
+                scalefactor=1.0,
+                size=(227, 227),
+                mean=(78.4263377603, 87.7689143744, 114.895847746),
                 swapRB=False,
             )
 
@@ -64,23 +71,32 @@ def detect_age(
             # display the predicted age to our terminal
             text = "{}: {:.2f}%".format(age, ageConfidence * 100)
             print(f"[INFO] {text}")
+            brackets.append((age, ageConfidence * 100))
 
             if show_image:
                 # draw the bounding box of the face along with the associated
                 # predicted age
                 y = startY - 10 if startY - 10 > 10 else startY + 10
-                cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
+                cv2.rectangle(
+                    img=image,
+                    pt1=(startX, startY),
+                    pt2=(endX, endY),
+                    color=(0, 0, 255),
+                    thickness=2,
+                )
                 cv2.putText(
-                    image,
-                    text,
-                    (startX, y),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
-                    (0, 0, 255),
-                    2,
+                    img=image,
+                    text=text,
+                    org=(startX, y),
+                    fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+                    fontScale=0.45,
+                    color=(0, 0, 255),
+                    thickness=2,
                 )
 
     if show_image:
         # display the output image
         cv2.imshow("Image", image)
         cv2.waitKey(0)
+
+    return brackets
