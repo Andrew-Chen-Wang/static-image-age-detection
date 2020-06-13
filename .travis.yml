@@ -3,12 +3,15 @@ dist: bionic
 
 language: python
 python: 3.8
+cache: pip
 
 jobs:
   include:
     - name: "Single Image Test"
       install:
-        - apt-get install -y python-opencv dlib
+        - sudo apt-get install -y build-essential
+        - sudo apt-get install -y cmake git pkg-config libopenblas-dev liblapack-dev libboost-python-dev
+        - sudo apt-get install -y python-opencv dlib
       script:
         - python main.py -i data/single_images/adrian.png
         - python main.py -i data/single_images/neil_patrick_harris.png
