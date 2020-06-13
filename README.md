@@ -52,13 +52,17 @@ are the same; if not, then we raise an error saying they are different.
 If there are multiple objects in the initial image, we only raise an
 error if none of the initial faces appear in the initial picture.
 
-Usage for multi-image dependant age estimation:
+Usage for multi-image dependant age estimation (you must have a dataset
+in the data folder to use this. Go to the
+[README](https://github.com/Andrew-Chen-Wang/static-image-age-detection/blob/master/data/README.md)
+for formatting):
 
 ```bash
 python main.py -i data/multi_images/barack -d=data/dataset --encoding-path=data/encoding.pickle
 ```
 
-Usage: `python main.py --image images/adrian.png`
+Usage for single image (i.e. not dependent on others, but you can specify a
+directory, too): `python main.py --image images/adrian.png`
 
 If you submit a directory of images, then we draw out the initial image
 with bounding boxes. You can specify to show all images with bounding
@@ -120,7 +124,7 @@ bit of code to just be more efficient. Of course, this project
 is not all about one image but multiple to increase accuracy,
 which is my code.
 
-I'm grateful for finding this because I couldn't find them
+I'm grateful for finding this because I couldn't find the models
 myself lol. So thanks for the tutorials, and I hope this
 module actually DOES increase accuracy while maintaining
 a good CPU usage level (slight jab at Dlib's HoG).
@@ -128,7 +132,7 @@ a good CPU usage level (slight jab at Dlib's HoG).
 Additionally, I used a lot, like a lot, of code from
 Adrian's tutorials, and only tweaked them to be more
 modern and lean (e.g. pathlib, unnecessary args, personal
-modifications to suit the project), so a big shoutout
+modifications to suit the project), so a big shout out
 to him for his wonderful work!
 
 ---

@@ -59,4 +59,11 @@ def build_args() -> ArgumentParser:
         default="data/names.pickle",
         help="path to output label/name encoder",
     )
+    ap.add_argument(
+        "--face-prob",
+        type=float,
+        default=0.4,
+        help="Minimum probability for a recognized face to be known "
+        "rather than unknown.",
+    )
     return ap

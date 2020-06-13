@@ -86,6 +86,27 @@ if __name__ == "__main__":
                         args["name_path"],
                     )
 
+            # Begin age estimation
+            from collections import defaultdict
+
+            from src.multi_age_detect.detect_age import detect_age
+            from src.utils.list_images import list_images
+
+            age_estimations: dict = defaultdict(list)
+            for imagePath in list_images(image):
+                brackets = detect_age(
+                    image=imagePath,
+                    min_confidence=args["confidence"],
+                    face_net=faceNet,
+                    age_net=ageNet,
+                    embedder=embedder,
+                    name_path=args["name_path"],
+                    recognizer_path=args["recognizer_path"],
+                    face_prob=args["face_prob"],
+                )
+                for i, j in brackets.items():
+                    age_estimations[i].extend(j)
+
     elif os.path.isfile(image):
         single_image_age_detect(
             image,
