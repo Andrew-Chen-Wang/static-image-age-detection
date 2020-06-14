@@ -92,7 +92,7 @@ def detect_age(
             name, prob = face_recognizer(
                 embedder, recognizer_path, name_path, face, face_prob
             )
-            brackets[name].append((prob, age, ageConfidence * 100))
+            brackets[name].append((prob, age, preds[0]))
 
             if show_image:
                 # draw the bounding box of the face along with the associated

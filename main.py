@@ -89,6 +89,7 @@ if __name__ == "__main__":
             # Begin age estimation
             from collections import defaultdict
 
+            from src.multi_age_detect.aggregate_data import calculate_age
             from src.multi_age_detect.detect_age import detect_age
             from src.utils.list_images import list_images
 
@@ -106,6 +107,9 @@ if __name__ == "__main__":
                 )
                 for i, j in brackets.items():
                     age_estimations[i].extend(j)
+
+            for name, value in age_estimations.items():
+                print(name, ":", calculate_age(value))
 
     elif os.path.isfile(image):
         single_image_age_detect(
