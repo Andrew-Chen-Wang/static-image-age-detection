@@ -30,7 +30,7 @@ def create_recognizer_with_label(embedding_path, recognizer_path, name_path) -> 
     # then produce the actual face recognition
     print("[INFO] training model...")
     recognizer = SVC(C=1.0, kernel="linear", probability=True)
-    recognizer.fit(data["embeddings"], labels)
+    recognizer.fit(data["encodings"], labels)
 
     # write the actual face recognition model to disk
     f = open(recognizer_path, "wb")

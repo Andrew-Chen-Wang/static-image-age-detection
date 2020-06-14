@@ -9,6 +9,7 @@ Table of Contents:
 - Benchmark
 - What's left to be done
 - References
+- FAQ
 - Contact Me
 - License
 
@@ -53,12 +54,12 @@ If there are multiple objects in the initial image, we only raise an
 error if none of the initial faces appear in the initial picture.
 
 Usage for multi-image dependant age estimation (you must have a dataset
-in the data folder to use this. Go to the
+in the data folder to use this with at least two people. Go to the
 [Data README](https://github.com/Andrew-Chen-Wang/static-image-age-detection/blob/master/data/README.md)
 for instructions on what you should have in the data directory):
 
 ```bash
-python main.py -i data/multi_images/barack -d=data/dataset
+python main.py -i data/input -d data/dataset
 ```
 
 Usage for single image (i.e. not dependent on others, but you can specify a
@@ -111,6 +112,13 @@ The last thing that needs work, for me, is when a new picture comes
 in. Perhaps at an 87% confidence threshold can you retrain a embedding
 using this new dataset (that just includes that one new photo). It's
 similar to how social media companies do it, but it'd be neat to learn!
+
+---
+### FAQ
+
+**Why am I getting** `ValueError: The number of classes has to be greater than one; got 1 class`?
+
+You should have at least two different, known people in your dataset directory.
 
 ---
 ### References

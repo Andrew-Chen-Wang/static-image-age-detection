@@ -35,7 +35,7 @@ def detect_age(
     name_path,
     face_prob: float,
     show_image: bool = False,
-) -> Dict[str : List[Tuple[float, str, float]]]:
+):
     # load the input image and construct an input blob for the image
     image = cv2.imread(image)
     (h, w) = image.shape[:2]
@@ -92,7 +92,10 @@ def detect_age(
             name, prob = face_recognizer(
                 embedder, recognizer_path, name_path, face, face_prob
             )
-            brackets[name].append((prob, age, preds[0]))
+            try:
+                brackets[name].append((prob, age, preds[0]))
+            except KeyError:
+                brackets[name] = [(prob, age, preds[0])]
 
             if show_image:
                 # draw the bounding box of the face along with the associated

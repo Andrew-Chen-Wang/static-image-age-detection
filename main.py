@@ -85,6 +85,12 @@ if __name__ == "__main__":
                         args["recognizer_path"],
                         args["name_path"],
                     )
+            else:
+                create_recognizer_with_label(
+                    args["encoding_path"],
+                    args["recognizer_path"],
+                    args["name_path"],
+                )
 
             # Begin age estimation
             from collections import defaultdict

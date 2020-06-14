@@ -14,13 +14,14 @@ Folders:
   used for the encoding data (which is used for
   facial recognition in further usage of the age
   estimator for unprocessed images).
+  - You MUST have two people in the dataset for this 
+    to work.
   - The format of the `dataset` folder is that there
-    is a subdirectory with the person's name that should
-    be labeled something like "andrew_wang" (i.e. lowercase
-    and underscore as spaces). In those directories,
-    add the images of that person. PLEASE make sure
-    that there is only one person in each photo,
-    and increase the confidence threshold if you must.
+    is a subdirectory with the person's name. 
+    In those directories, add the images of that 
+    person. PLEASE make sure that there is only one 
+    person in each photo, and increase the confidence 
+    threshold if you must.
   - These images are NOT used for the age estimation.
     They are only used for facial recognition so that
     the multi-image age detector can figure out which
