@@ -108,6 +108,7 @@ if __name__ == "__main__":
                 for i, j in brackets.items():
                     age_estimations[i].extend(j)
 
+            print("Note: Unknown people have name that're in UUID v4 format.")
             for name, value in age_estimations.items():
                 print(name, ":", calculate_age(value))
 

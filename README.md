@@ -54,11 +54,11 @@ error if none of the initial faces appear in the initial picture.
 
 Usage for multi-image dependant age estimation (you must have a dataset
 in the data folder to use this. Go to the
-[README](https://github.com/Andrew-Chen-Wang/static-image-age-detection/blob/master/data/README.md)
-for formatting):
+[Data README](https://github.com/Andrew-Chen-Wang/static-image-age-detection/blob/master/data/README.md)
+for instructions on what you should have in the data directory):
 
 ```bash
-python main.py -i data/multi_images/barack -d=data/dataset --encoding-path=data/encoding.pickle
+python main.py -i data/multi_images/barack -d=data/dataset
 ```
 
 Usage for single image (i.e. not dependent on others, but you can specify a
