@@ -67,7 +67,7 @@ python main.py -i data/input -d data/dataset
 ```
 
 Usage for single image (i.e. not dependent on others, but you can specify a
-directory, too): `python main.py --image images/adrian.png`
+directory, too): `python main.py --image data/single_images/adrian.png`
 
 If you submit a directory of images, then we draw out the initial image
 with bounding boxes. You can specify to show all images with bounding

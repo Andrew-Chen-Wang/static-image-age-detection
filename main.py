@@ -98,7 +98,7 @@ if __name__ == "__main__":
             from src.utils.list_images import list_images
 
             age_estimations: dict = defaultdict(list)
-            for imagePath in list_images(image):
+            for x, imagePath in enumerate(list_images(image)):
                 brackets = detect_age(
                     image=imagePath,
                     min_confidence=args["confidence"],
@@ -108,6 +108,7 @@ if __name__ == "__main__":
                     name_path=args["name_path"],
                     recognizer_path=args["recognizer_path"],
                     face_prob=args["face_prob"],
+                    show_image=(args["show_first"] and x == 0) or args["show_all"],
                 )
                 for i, j in brackets.items():
                     age_estimations[i].extend(j)

@@ -32,6 +32,12 @@ def build_args() -> ArgumentParser:
         help="Shows the first image after processing.",
     )
     ap.add_argument(
+        "-sa",
+        "--show-all",
+        action="store_true",
+        help="Shows all images after processing..",
+    )
+    ap.add_argument(
         "-wa",
         "--without-aggregate",
         action="store_true",
