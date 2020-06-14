@@ -38,6 +38,6 @@ def calculate_age(age_brackets: list) -> str:
     :return: age bracket of person
     """
     confidence_intervals = np.sum(
-        [age_brackets[x][2] for x in range(len(age_brackets))]
+        [age_brackets[x][2] for x in range(len(age_brackets))], axis=0
     )
     return AGE_BUCKETS[confidence_intervals.argmax()]

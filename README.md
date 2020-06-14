@@ -2,11 +2,15 @@
 
 Created 9 June 2020
 
+Started AND Finished 13 June 2020
+
+Published by Andrew Chen Wang
+
 Table of Contents:
 - Introduction
 - How this works
 - Technical details
-- Benchmark
+- Conclusion + Benchmark
 - What's left to be done
 - References
 - FAQ
@@ -83,7 +87,22 @@ It is primarily designed to detect the person and log the correct age
 bracket in case an input image has multiple people.
 
 ---
-### Benchmark
+### Conclusion + Benchmark
+
+Conclusion:
+
+As of 13 June 2020 midnight, I finished it and tested it
+on some female model that my friend sent me so that I can test this.
+As noted the main [age-detection repo](https://github.com/Andrew-Chen-Wang/age-detection),
+females are more difficult ot identify in age. The model turned out
+to be in the 8-12 age bracket. I still need further testing though,
+as I only did one.
+
+In my opinion, it's just a matter of the age detector model used.
+I cannot be conclusive about if multiple images help or not,
+so I'm going to try and find a better age detector model.
+
+Benchmark:
 
 The reason I wanted to do this was to improve the accuracy of age detection
 using videos. To put it to the test, you can run `benchmark.py` which
